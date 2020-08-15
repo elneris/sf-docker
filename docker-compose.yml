@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+    apache:
+        build: .docker/apache
+        ports:
+          - 127.0.0.1:80:80
+        volumes:
+            - .:/var/www/project
+        working_dir: /var/www/project
+
+    php:
+        build: .docker/php
+        user: dev
+        volumes:
+            - .:/var/www/project
+            - ~/.ssh:/home/dev/.ssh
+        working_dir: /var/www/project
+
+    db:
+        image: postgres:12.0-alpine
+        expose:
+            - 5432
+        ports:
+            - "127.0.0.1:5432:5432"
+        volumes:
+            - ./var/postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: database
+            TZ: "Europe/Paris"

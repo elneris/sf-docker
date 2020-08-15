@@ -1,0 +1,25 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__.'/src')
+    ->in(__DIR__.'/migrations')
+    ->in(__DIR__.'/tests')
+    ->exclude('var')
+;
+
+$header = <<<'EOF'
+This file is part of the Elneris Personal Project.
+
+Copyright (C) Elneris Dang - All Rights Reserved
+
+EOF;
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'header_comment' => ['header' => $header],
+        'binary_operator_spaces' => ['align_double_arrow' => true],
+    ])
+    ->setFinder($finder)
+;
